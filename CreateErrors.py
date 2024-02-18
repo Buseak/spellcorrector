@@ -41,21 +41,21 @@ def change_chars_next(word, choice): #olması gereken gold wordün b li hali
 keyboard_closest_chars = {
     "a": ["w","s","q"],
     "s": ["a","d"],
-    "e": ["w","r"],
+    "e": ["w","r","d"],
     "r": ["e","t"],
     "o": ["u","ı", "i"],
     "ı": ["ı","o","k"],
-    "i": ["ü"],
-    "ü": ["i"],
-    "l": ["k"],
+    "i": ["ü", "ş"],
+    "ü": ["i","ğ"],
+    "l": ["k", "o"],
     "k": ["l", "m"],
     "m": ["k", "m", "n"],
     "g": ["f","h"],
     "h": ["j","g"],
     "b": ["v", "m"],
     "z": ["a","s"],
-    "y": ["u"],
-    "t": ["r"],
+    "y": ["u","t"],
+    "t": ["r","y"],
     "n": ["b","m"],
     "d": ["s","a"],
     "q":["w","a"]
@@ -66,7 +66,13 @@ vowel = "aâeıioöuüAÂEIİOÖUÜ"
 def add_random_char_prev(word, choice): #olması gerekn eklenen charda b olması
     #add a random character from all_chars
     error_word = list(word)
-    char_to_insert = random.choice(all_chars_list)
+    if word[choice] not in keyboard_closest_chars.keys():
+        input_word = add_dummy_char(word)
+        output_word = add_dummy_char(word)
+        
+        return (word, input_word, output_word)
+
+    char_to_insert = random.choice(keyboard_closest_chars[word[choice]])
     error_word.insert(choice,char_to_insert)
 
     word_with_error = "".join(error_word)
@@ -83,7 +89,12 @@ def add_random_char_prev(word, choice): #olması gerekn eklenen charda b olması
 def add_random_char_next(word, choice): #eklenen charda b olması
     #add a random character from all_chars
     error_word = list(word)
-    char_to_insert = random.choice(all_chars_list)
+    if word[choice] not in keyboard_closest_chars.keys():
+        input_word = add_dummy_char(word)
+        output_word = add_dummy_char(word)
+        return (word, input_word, output_word)
+
+    char_to_insert = random.choice(keyboard_closest_chars[word[choice]])
     error_word.insert(choice + 1,char_to_insert)
 
     word_with_error = "".join(error_word)
@@ -100,7 +111,12 @@ def add_random_char_next(word, choice): #eklenen charda b olması
 def change_with_random_char(word,choice): #gold wordün bli hali
     error_word = list(word)
     
-    char_to_insert = random.choice(all_chars_list)    
+    if word[choice] not in keyboard_closest_chars.keys():
+        input_word = add_dummy_char(word)
+        output_word = add_dummy_char(word)
+        return (word, input_word, output_word)
+
+    char_to_insert = random.choice(keyboard_closest_chars[word[choice]])   
 
     error_word[choice]=char_to_insert
 
@@ -302,11 +318,11 @@ def apply_errors(error_count_by_word, error_percent_by_sent,sentence_list, error
 modified_sentences, errors, errors_for_sentence, errors_for_word, input_sentences, output_sentences = apply_errors(0,0.5, sentence_list,error_counts)
 
 
-# df = pd.DataFrame({"Original_sent": sentence_list, "Error_sent": modified_sentences, "Errors_for_sentence": errors_for_sentence, "Errors_for_word": errors_for_word})
-# df.to_excel("boun_test_spelling_mistakes_050.xlsx")
+df = pd.DataFrame({"Original_sent": sentence_list, "Error_sent": modified_sentences, "Errors_for_sentence": errors_for_sentence, "Errors_for_word": errors_for_word})
+df.to_excel("boun_test_spelling_mistakes_050_qwerty.xlsx")
 
-# df_inp_out = pd.DataFrame({"Input_sentences": input_sentences, "Output_sentences": output_sentences})
-# df_inp_out.to_excel("boun_test_050_inp_out.xlsx")
+df_inp_out = pd.DataFrame({"Input_sentences": input_sentences, "Output_sentences": output_sentences})
+df_inp_out.to_excel("boun_test_050_inp_out_qwerty.xlsx")
 
 
 print(errors)
