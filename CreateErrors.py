@@ -191,7 +191,7 @@ def parse_sents(path):
 
   return(sentence_text_list)
 
-train_path = "tr_boun-ud-test.conllu"
+train_path = "tr_boun-ud-train.conllu"
 sentence_list = parse_sents(train_path)
 
 
@@ -319,10 +319,10 @@ modified_sentences, errors, errors_for_sentence, errors_for_word, input_sentence
 
 
 df = pd.DataFrame({"Original_sent": sentence_list, "Error_sent": modified_sentences, "Errors_for_sentence": errors_for_sentence, "Errors_for_word": errors_for_word})
-df.to_excel("boun_test_spelling_mistakes_050_qwerty.xlsx")
+df.to_excel("boun_train_spelling_mistakes_050_qwerty_v2.xlsx")
 
 df_inp_out = pd.DataFrame({"Input_sentences": input_sentences, "Output_sentences": output_sentences})
-df_inp_out.to_excel("boun_test_050_inp_out_qwerty.xlsx")
+df_inp_out.to_excel("boun_train_050_inp_out_qwerty_v2.xlsx")
 
 
 print(errors)
