@@ -232,14 +232,18 @@ def apply_errors(error_count_by_word, error_percent_by_sent,sentence_list, error
         error_types = [0] * len(words)
         input_words = [""] * len(words)
         output_words = [""] * len(words)
-        sent_len = math.ceil(len(words)/(1/error_percent_by_sent))
+        sent_len = math.floor(len(words)/(1/error_percent_by_sent))
         
         available_words = get_index_of_available_words(sentence)
 
         new_sent = []
 
-        if len(available_words) >= sent_len:
-            rand_word_indices = random.sample(available_words,sent_len)
+        word_count_to_select = sent_len
+        if len(available_words) < sent_len:
+            word_count_to_select = len(available_words)
+
+        if word_count_to_select != 0:
+            rand_word_indices = random.sample(available_words,word_count_to_select)
             rand_word_indices.sort()
             for word_ind in rand_word_indices:
                 min_error_index = error_counts.index(min(error_counts))
@@ -442,14 +446,14 @@ def apply_errors(error_count_by_word, error_percent_by_sent,sentence_list, error
 
     return modified_sent_list, error_counts, error_by_sent, error_counts_by_word, input_sents, output_sents, error_type_by_word
 
-modified_sentences, errors, errors_for_sentence, errors_for_word, input_sentences, output_sentences, error_type_by_word = apply_errors(0,0.5, sentence_list,error_counts)
+modified_sentences, errors, errors_for_sentence, errors_for_word, input_sentences, output_sentences, error_type_by_word = apply_errors(0,1, sentence_list,error_counts)
 
 
 df = pd.DataFrame({"Original_sent": sentence_list, "Error_sent": modified_sentences, "Errors_for_sentence": errors_for_sentence, "Errors_for_word": errors_for_word, "Error_type_by_word": error_type_by_word})
-df.to_excel("boun_test_spelling_mistakes_050_qwerty_v4.xlsx")
+df.to_excel("boun_test_spelling_mistakes_050_qwerty_v5_%100.xlsx")
 
 df_inp_out = pd.DataFrame({"Input_sentences": input_sentences, "Output_sentences": output_sentences})
-df_inp_out.to_excel("boun_test_050_inp_out_qwerty_v4.xlsx")
+df_inp_out.to_excel("boun_test_050_inp_out_qwerty_v5_%100.xlsx")
 
 
 print(errors)
