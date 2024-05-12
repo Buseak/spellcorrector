@@ -1,0 +1,46 @@
+{
+  "add_prefix_space": false,
+  "added_tokens_decoder": {
+    "0": {
+      "content": "\u0000",
+      "lstrip": false,
+      "normalized": true,
+      "rstrip": false,
+      "single_word": false,
+      "special": true
+    },
+    "57344": {
+      "content": "",
+      "lstrip": false,
+      "normalized": true,
+      "rstrip": false,
+      "single_word": false,
+      "special": true
+    },
+    "57345": {
+      "content": "",
+      "lstrip": false,
+      "normalized": true,
+      "rstrip": false,
+      "single_word": false,
+      "special": true
+    },
+    "57347": {
+      "content": "",
+      "lstrip": true,
+      "normalized": true,
+      "rstrip": false,
+      "single_word": false,
+      "special": true
+    }
+  },
+  "bos_token": "",
+  "clean_up_tokenization_spaces": true,
+  "cls_token": "",
+  "eos_token": "",
+  "mask_token": "",
+  "model_max_length": 2048,
+  "pad_token": "\u0000",
+  "sep_token": "",
+  "tokenizer_class": "CanineTokenizer"
+}
